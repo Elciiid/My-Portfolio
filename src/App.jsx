@@ -1,31 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Hero from "./components/Hero";
-import Profile from "./components/Profile";
+import React from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
 import Projects from './components/Projects';
-import MoreInfo from './components/MoreInfo';
-import Footer from './components/Footer.jsx';
+import About from './components/About';
+import Footer from './components/Footer';
 
-function App() {
+export default function App() {
   return (
-    // This <main> tag will hold all your page sections.
-    <main>
+    <main className="w-full bg-black text-white min-h-screen">
+      <Navbar />
       <Hero />
-      
-      {/* This div pushes the rest of the content down by 100vh (the height of the hero) */}
-      <div style={{ marginTop: '100vh' }}>
-        <Profile />
-      
       <Projects />
-
-      <MoreInfo />
-
+      <About />
       <Footer />
-      </div>
     </main>
   );
 }
-
-export default App;

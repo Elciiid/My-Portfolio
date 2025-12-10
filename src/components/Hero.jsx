@@ -1,66 +1,53 @@
-function Hero() {
-  return (
-    // 1. Main container: 
-    // - CHANGED: Set to `absolute` positioning to fill the viewport
-    //   and float over other content.
-    <section 
-      id="hero" 
-      className="absolute top-0 left-0 w-full text-white flex flex-col font-inter overflow-x-hidden" 
-      style={{ 
-        fontFamily: 'Inter, sans-serif',
-        height: '100vh', 
-        backgroundColor: 'black',
-        maxWidth: '100%'
-      }}
+import React from 'react';
+import { motion } from 'framer-motion';
+
+const Hero = () => (
+  <section className="relative h-screen w-full flex flex-col justify-center items-center text-center overflow-hidden px-4">
+    
+    {/* CONTENT WRAPPER */}
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="relative z-10 w-full max-w-6xl mx-auto"
     >
       
-      {/* 2. Top Navigation/Header Bar */}
-      <div className="flex justify-between items-center w-full text-sm font-semibold uppercase opacity-90 z-10 py-4 px-4 sm:px-8">
-        
-        {/* Left: Project Status & Logo */}
-        <div className="flex items-center space-x-4">
-          <span className="flex items-center text-xs font-bold tracking-widest text-white/70">
-            <div className="inline-grid [&>*]:[grid-area:1/1]">
-              <div className="status status-success animate-ping"></div>
-              <div className="status status-success"></div>
-            </div>
-            <span className="ml-2">AVAILABLE FOR INTERNSHIP</span>
-          </span>
-        </div>
+      {/* BACKGROUND GLOW ANIMATION */}
+      {/* FIX: We added x: "-50%" and y: "-50%" to the animate prop so centering is not deleted */}
+      <motion.div 
+        className="absolute top-1/2 left-1/2 w-[300px] md:w-[600px] h-[150px] md:h-[150px] bg-[#FF6C00] rounded-full blur-[100px] md:blur-[120px] pointer-events-none -z-10"
+        initial={{ x: "-48%", y: "-50%" }} 
+        animate={{ 
+          x: "-48%",              // Keep horizontal centering
+          y: "-50%",              // Keep vertical centering
+          opacity: [0.2, 0.5, 0.2], 
+          scale: [1, 1.1, 1],       
+        }}
+        transition={{
+          duration: 4,          
+          repeat: Infinity,     
+          ease: "easeInOut"     
+        }}
+      />
 
-        {/* Center: Studio Name */}
-        <div className="text-xl font-extrabold tracking-widest">
-          Jonas David
-        </div>
-        
-        {/* Right: Contact Link (as plain text) */}
-        <span className="text-white font-normal hidden sm:block text-sm">
-          jonaselcid30@gmail.com
-        </span>
-      </div>
+      {/* Sub-Headline */}
+      <h2 className="text-sm md:text-2xl font-medium text-gray-400 mb-4 tracking-wide uppercase relative z-10">
+        Projects, Certifications, & More
+      </h2>
+      
+      {/* Main Title */}
+      <h1 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter text-white leading-[0.9] mb-6 relative z-10">
+        DESIGNS & <br />
+        <span className="text-[#FF6C00]">DEVELOPMENT</span>
+      </h1>
+      
+      {/* Description */}
+      <p className="max-w-xl mx-auto text-gray-400 text-sm md:text-xl leading-relaxed mt-4 md:mt-8 px-4 relative z-10">
+        I love turning ideas into interactive experiences. My focus is on clean design, smooth performance, and code that tells a story.
+      </p>
 
-      {/* 3. Main Hero Content - Massive Text */}
-      <div className="flex flex-col justify-center flex-grow pb-16 pt-8 sm:pt-0 px-4 sm:px-8">
-        
-        {/* Sub-Headline */}
-        <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight mb-2 sm:mb-4">
-          Projects, Certifications, and much more
-        </h1>
-
-        {/* Main Orange Headline */}
-        <h2 
-          className="leading-none font-black tracking-tighter text-[#FF6C00] break-words
-                     text-[5.5rem] sm:text-[8rem] md:text-[10rem] lg:text-[14rem] xl:text-[16rem]"
-          style={{ lineHeight: 0.85 }}
-        >
-          Designs & <br />Development
-        </h2>
-        
-      </div>
-
-    </section>
-  );
-}
-
+    </motion.div>
+  </section>
+);
 
 export default Hero;

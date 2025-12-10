@@ -1,68 +1,50 @@
 import React from 'react';
-import githubLogo from '../assets/github-mark.png';
-import linkedinLogo from '../assets/InBug-Black.png';
-import gmailLogo from '../assets/gmail.png';
+import { Github, Linkedin, Mail } from 'lucide-react';
+import { SOCIALS } from '../constants';
 
-function Footer() {
-  const githubUrl = "https://github.com/Elciiid";
-  const linkedinUrl = "https://www.linkedin.com/in/jonas-david-487722352/";
-
-  return (
-    <footer 
-      id="contact" 
-      className="relative w-full font-inter text-neutral-800"
+const Footer = () => (
+  // CHANGED: Removed 'bg-black'. Now uses 'bg-transparent' (default) to let the aura show through.
+  <footer className="relative w-full py-16 md:py-24 px-6 text-center overflow-hidden">
+    
+    {/* Bottom "Sunrise" Gradient */}
+    <div 
+      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[500px] pointer-events-none opacity-20"
       style={{
-        background: "linear-gradient(to top, #FF6C00 85%, #000000 100%)", // black to orange fade
-        fontFamily: 'Inter, sans-serif',
-        minHeight: '50vh',
-        padding: '4rem 2rem',
+        background: 'radial-gradient(ellipse at bottom, rgba(255,108,0,0.6) 0%, rgba(0,0,0,0) 70%)'
       }}
-    >
-      <div className="max-w-7xl w-full mx-auto flex flex-col justify-between h-full">
-        
-        {/* CONTACT SECTION */}
-        <div className="flex flex-col items-start text-left ml-2 md:ml-4">
-          
-          {/* Small tagline */}
-          <p className="text-sm md:text-base font-light text-black mb-1">
-            Want to hire me?
-          </p>
+    />
 
-          {/* Big non-linked call-to-action */}
-          <h1 
-            className="text-7xl md:text-9xl lg:text-[10rem] font-extrabold text-black hover:text-white transition-colors duration-300 leading-[1.05] cursor-default"
-            style={{ letterSpacing: '-0.03em' }}
-          >
-            Let's Chat!
-          </h1>
-
-          {/* Address */}
-          <p className="text-base md:text-lg text-black mt-10 mb-4">
-            Angeles City, Pampanga, Philippines
-          </p>
-
-          {/* Placeholder Social Icons */}
-          <div className="flex items-center gap-5">
-            <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-              <img src={githubLogo} alt="GitHub" className="w-10 h-10" />
-            </a>
-            <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
-              <img src={linkedinLogo} alt="LinkedIn" className="w-10 h-10" />
-
-            </a>
-            <a href="#hero">
-              <img src={gmailLogo} alt="Gmail" className="w-10 h-10" />
-            </a>
-          </div>
-        </div>
-
-        {/* COPYRIGHT (bottom-right) */}
-        <div className="absolute bottom-6 right-8 text-sm text-black opacity-70">
-          &copy; {new Date().getFullYear()} Jonas David
-        </div>
+    <div className="max-w-4xl mx-auto z-10 relative">
+      <p className="text-sm font-light mb-4 text-white/60">Want to hire me?</p>
+      
+      <a 
+        href={`mailto:${SOCIALS.email}`}
+        className="block group"
+      >
+        <h2 className="text-5xl md:text-9xl font-black text-white transition-all duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#FF6C00] mb-2">
+          Let's Chat!
+        </h2>
+        <p className="text-lg text-white/40 group-hover:text-[#FF6C00] transition-colors mb-12">
+          {SOCIALS.email}
+        </p>
+      </a>
+      
+      <div className="flex justify-center gap-6 md:gap-8 mb-12">
+        <a href={SOCIALS.github} target="_blank" rel="noopener noreferrer" className="p-3 md:p-4 bg-white/10 rounded-full hover:bg-[#FF6C00] hover:scale-110 transition-all">
+          <Github size={20} className="md:w-6 md:h-6" />
+        </a>
+        <a href={SOCIALS.linkedin} target="_blank" rel="noopener noreferrer" className="p-3 md:p-4 bg-white/10 rounded-full hover:bg-[#FF6C00] hover:scale-110 transition-all">
+          <Linkedin size={20} className="md:w-6 md:h-6" />
+        </a>
+        <a href={`mailto:${SOCIALS.email}`} className="p-3 md:p-4 bg-white/10 rounded-full hover:bg-[#FF6C00] hover:scale-110 transition-all">
+          <Mail size={20} className="md:w-6 md:h-6" />
+        </a>
       </div>
-    </footer>
-  );
-}
+      
+      <p className="text-white/50 text-sm">{SOCIALS.location}</p>
+      <p className="text-white/30 text-xs mt-8">&copy; {new Date().getFullYear()} Jonas David</p>
+    </div>
+  </footer>
+);
 
 export default Footer;
