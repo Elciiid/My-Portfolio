@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary-orange': '#FF6C00',
+        'primary-pink': '#F48FB1', // Updated to Pink
       },
       animation: {
         'glowPulse': 'glowPulse 4s ease-in-out infinite',
@@ -15,11 +15,11 @@ export default {
       keyframes: {
         glowPulse: {
           '0%, 100%': {
-            boxShadow: '0 0 30px 5px rgba(255, 108, 0, 0.4)',
+            boxShadow: '0 0 30px 5px rgba(244, 143, 177, 0.4)', // Updated RGBA to match Pink
             transform: 'scale(1)',
           },
           '50%': {
-            boxShadow: '0 0 55px 10px rgba(255, 108, 0, 0.8)',
+            boxShadow: '0 0 55px 10px rgba(244, 143, 177, 0.8)', // Updated RGBA to match Pink
             transform: 'scale(1.03)',
           },
         },
