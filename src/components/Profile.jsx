@@ -1,45 +1,56 @@
-import { motion } from 'framer-motion'
-import profileImg from '../assets/jonasdavid.png'
+import React from 'react';
+import profileImage from '../assets/jonasdavid.png';
 
-export default function Profile() {
+function Profile() {
+  const userName = "Jonas David";
+  const imageUrl = profileImage;
+
   return (
-    <section id="about" className="min-h-screen flex items-center py-20 px-6">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-        >
-          <img 
-            src={profileImg} 
-            alt="Jonas David"
-            className="rounded-3xl w-full max-w-md mx-auto shadow-2xl border border-white/10"
-            onError={(e) => e.target.src = 'https://placehold.co/600x600/1a1a2e/FF2E63?text=JD'}
-          />
-        </motion.div>
+    <section 
+      id="profile" 
+      className="relative w-full flex items-center justify-center font-inter overflow-x-hidden"
+      style={{
+        backgroundColor: "black", 
+        fontFamily: 'Inter, sans-serif', 
+        minHeight: '100vh',
+        padding: '4rem 1rem',
+        maxWidth: '100%'
+      }}
+    >
+      {/* Content container */}
+      <div className="text-white max-w-6xl w-full p-12 md:p-20 overflow-hidden">
 
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="space-y-8"
-        >
-          <h2 className="text-5xl md:text-7xl font-bold">About Me</h2>
-          <p className="text-lg text-gray-300 leading-relaxed">
-            I turn ideas into living digital experiences. Passionate about clean code, beautiful design, 
-            and pushing the boundaries of what's possible on the web.
-          </p>
-          <p className="text-lg text-gray-300 leading-relaxed">
-            From machine learning-powered browser extensions to preserving indigenous languages through mobile apps — 
-            I love solving real problems with creativity and precision.
-          </p>
-          <div className="pt-6">
-            <span className="inline-block px-6 py-3 glass rounded-full text-[#FF2E63] font-medium">
-              Available for Internship & Freelance
-            </span>
+        {/* Layout: image + name */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6">
+          
+          {/* IMAGE with glowing pulse */}
+          <div className="relative mx-auto">
+            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden 
+                            border-4 border-[#FF6C00] shadow-[0_0_40px_5px_rgba(255,108,0,0.6)]
+                            animate-glowPulse ">
+              <img
+                src={imageUrl}
+                alt={userName}
+                className="w-full h-full object-cover rounded-full"
+                onError={(e) => { 
+                  e.target.onerror = null; 
+                  e.target.src = 'https://placehold.co/400x400/222222/FF6C00?text=JD'; 
+                }}
+              />
+            </div>
           </div>
-        </motion.div>
+
+          {/* TEXT section */}
+          <div className="flex flex-col justify-center text-center md:text-left md:ml-8 md:-translate-y-2">
+            <h1 className="text-6xl md:text-7xl font-extrabold text-white mb-0">
+              {userName}
+            </h1>
+          </div>
+
+        </div>
       </div>
     </section>
-  )
+  );
 }
+
+export default Profile;

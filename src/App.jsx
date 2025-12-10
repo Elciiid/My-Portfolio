@@ -1,36 +1,31 @@
-import { useEffect, useState } from 'react'
-import Hero from './components/Hero'
-import Profile from './components/Profile'
-import Projects from './components/Projects'
-import Skills from './components/Skills'
-import Contact from './components/Contact'
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+import Hero from "./components/Hero";
+import Profile from "./components/Profile";
+import Projects from './components/Projects';
+import MoreInfo from './components/MoreInfo';
+import Footer from './components/Footer.jsx';
 
 function App() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY })
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
-
   return (
-    <>
-      {/* Magnetic Cursor */}
-      <div 
-        className="cursor"
-        style={{ left: mousePos.x, top: mousePos.y }}
-      />
-
+    // This <main> tag will hold all your page sections.
+    <main>
       <Hero />
-      <Profile />
+      
+      {/* This div pushes the rest of the content down by 100vh (the height of the hero) */}
+      <div style={{ marginTop: '100vh' }}>
+        <Profile />
+      
       <Projects />
-      <Skills />
-      <Contact />
-    </>
-  )
+
+      <MoreInfo />
+
+      <Footer />
+      </div>
+    </main>
+  );
 }
 
-export default App
+export default App;

@@ -1,56 +1,71 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui";
 
-:root {
-  --primary: #FF2E63;
-  --purple: #4B2E83;
-  --bg: #0F0F1A;
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  overflow-x: hidden;
 }
 
-body {
-  font-family: 'Satoshi', sans-serif;
-  background: var(--bg);
+
+/* Ensure the body and html also prevent horizontal scroll */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Clash Display', sans-serif;
-  letter-spacing: -0.02em;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-/* Magnetic Cursor */
-.cursor {
-  pointer-events: none;
-  position: fixed;
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 46, 99, 0.2);
-  border: 1px solid rgba(255, 46, 99, 0.4);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: all 0.1s ease;
-  z-index: 9999;
-  backdrop-filter: blur(10px);
-  mix-blend-mode: difference;
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.cursor-grow {
-  width: 80px;
-  height: 80px;
-  background: rgba(255, 46, 99, 0.4);
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
 }
 
-/* Glassmorphism Card */
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.card {
+  padding: 2em;
 }
 
-/* Text Gradient */
-.text-gradient {
-  background: linear-gradient(90deg, #FF2E63, #A78BFA);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.read-the-docs {
+  color: #888;
+}
+
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 30px 5px rgba(255, 108, 0, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 55px 10px rgba(255, 108, 0, 0.8);
+    transform: scale(1.03);
+  }
+}
+
+.animate-glowPulse {
+  animation: glowPulse 4s ease-in-out infinite;
 }
