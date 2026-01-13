@@ -113,6 +113,9 @@ const Footer = () => {
       {/* 3D Background */}
       <Footer3D />
 
+      {/* Top Fade Gradient */}
+      <div className="absolute top-0 w-full h-64 bg-gradient-to-b from-black to-transparent z-20 pointer-events-none" />
+
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 opacity-10 pointer-events-none"
         style={{

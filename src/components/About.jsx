@@ -14,6 +14,7 @@ const About = () => {
   const skillsRef = useRef(null);
   const containerRef = useRef(null);
   const auraRef = useRef(null);
+  const textRef = useRef(null);
 
 
   useGSAP(() => {
@@ -56,20 +57,79 @@ const About = () => {
     );
 
     // Aura animation
-    gsap.fromTo(
-      auraRef.current,
-      { opacity: 0, scale: 0.5 },
+    // Tech Shapes Animation
+    gsap.to(
+      auraRef.current?.querySelectorAll('.gsap-shape'),
       {
-        opacity: 0.2,
-        scale: 1,
-        duration: 1,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 60%',
-          once: true,
-        },
+        y: 'random(-50, 50)',
+        rotation: 'random(-180, 180)',
+        opacity: 'random(0.3, 0.8)',
+        duration: 'random(5, 10)',
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        stagger: {
+          amount: 2,
+          from: "random"
+        }
       }
     );
+
+    // UI Animations
+    gsap.fromTo('.gsap-ui-bracket',
+      { scale: 2, opacity: 0 },
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 75%',
+        }
+      }
+    );
+
+    gsap.to('.gsap-ui-bar', {
+      opacity: 0.8,
+      height: 'random(10, 40)',
+      duration: 0.5,
+      stagger: {
+        each: 0.1,
+        repeat: -1,
+        yoyo: true
+      },
+      ease: 'power1.inOut'
+    });
+
+    // Scramble Text Loop
+    const phrases = ["SYSTEM_READY", "THINK_CREATE_MAKE", "INITIALIZING...", "BREACH_DETECTED", "JONAS_DAVID"];
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+
+    if (textRef.current) {
+      let tl = gsap.timeline({ repeat: -1 });
+
+      phrases.forEach(phrase => {
+        tl.to(textRef.current, {
+          duration: 1,
+          onUpdate: function () {
+            const progress = this.progress();
+            const len = phrase.length;
+            let result = "";
+            for (let i = 0; i < len; i++) {
+              if (i < progress * len) {
+                result += phrase[i];
+              } else {
+                result += chars[Math.floor(Math.random() * chars.length)];
+              }
+            }
+            textRef.current.innerText = result + " //";
+          }
+        })
+          .to({}, { duration: 1.5 }); // Hold text
+      });
+    }
 
     // Heading animation with letter stagger effect
     gsap.fromTo(
@@ -111,61 +171,7 @@ const About = () => {
 
 
 
-    // Scroll-driven Path Drawing
-    const path = document.querySelector('.draw-path');
-    if (path) {
-      const length = path.getTotalLength();
-      gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
 
-      gsap.to(path, {
-        strokeDashoffset: 0,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          end: "bottom 20%",
-          scrub: 1
-        }
-      });
-    }
-
-    // Tech Ring Animation
-    gsap.to(".gsap-tech-ring", {
-      rotation: 360,
-      transformOrigin: "800px 150px", // spin around its center
-      duration: 30,
-      repeat: -1,
-      ease: "linear"
-    });
-
-    // SVG Decorations Animation
-    gsap.to(".gsap-line-path", {
-      strokeDashoffset: -100, // Assumes we set dasharray in CSS or here, but straightforward path movement works better with x/y usually
-      x: 10,
-      duration: 5,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
-    });
-
-    // Animate the path shape itself using attribute modification if we wanted, 
-    // but here we'll just float them
-    gsap.to(".bg-path-2", {
-      attr: { d: "M0,75 Q40,80 60,65 T100,75" },
-      duration: 4,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
-    });
-
-    gsap.to(".gsap-float-circle", {
-      y: -15,
-      x: 5,
-      duration: 6,
-      repeat: -1,
-      yoyo: true,
-      stagger: 2,
-      ease: "sine.inOut"
-    });
 
     // Skill item hover animations
     const handleSkillHover = (el) => {
@@ -216,54 +222,67 @@ const About = () => {
       ref={sectionRef}
       className="relative py-24 px-6 max-w-7xl mx-auto overflow-visible"
     >
-      {/* Animated PINK AURA */}
-      <div
-        ref={auraRef}
-        className="absolute right-0 top-1/2 -translate-y-1/2 w-[1000px] h-[200%] pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(circle at center, rgba(244,143,177,0.5) 0%, rgba(0,0,0,0) 50%)',
-        }}
-      />
+      {/* GSAP Tech Shapes */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
 
-      {/* Floating Animated SVG Shapes */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
-        {/* Draw Path SVG */}
-        <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 1000 600" preserveAspectRatio="none">
-          <path
-            className="draw-path"
-            d="M-50,300 C200,500 400,100 600,300 S1050,100 1200,300"
-            fill="none"
-            stroke="#F48FB1"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-            opacity="0.5"
-          />
-          {/* Rotating Tech Ring */}
-          <g className="gsap-tech-ring" opacity="0.2">
-            <circle cx="800" cy="150" r="70" fill="none" stroke="#F48FB1" strokeWidth="2" strokeDasharray="20,10" />
-            <circle cx="800" cy="150" r="100" fill="none" stroke="#F48FB1" strokeWidth="1" strokeDasharray="5,15" opacity="0.5" />
-          </g>
-        </svg>
+        {/* New Tech Elements Container */}
+        <div ref={auraRef} className="absolute inset-0 w-full h-full opacity-60">
+          {/* Floating Items */}
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={`cross-${i}`}
+              className="gsap-shape gsap-cross absolute text-[#F48FB1]/20 font-light"
+              style={{
+                left: `${Math.random() * 80 + 10}%`,
+                top: `${Math.random() * 80 + 10}%`,
+                fontSize: `${Math.random() * 20 + 20}px`
+              }}
+            >
+              +
+            </div>
+          ))}
 
-        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path
-            className="gsap-line-path"
-            d="M0,50 Q25,30 50,50 T100,50"
-            fill="none"
-            stroke="#F48FB1"
-            strokeWidth="0.5"
-          />
-          <path
-            className="gsap-line-path bg-path-2"
-            d="M0,70 Q40,90 60,60 T100,80"
-            fill="none"
-            stroke="rgba(255,255,255,0.3)"
-            strokeWidth="0.3"
-          />
-          <circle className="gsap-float-circle" cx="10" cy="20" r="2" fill="none" stroke="#F48FB1" strokeWidth="0.2" />
-          <circle className="gsap-float-circle" cx="90" cy="80" r="3" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="0.2" />
-        </svg>
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={`ring-${i}`}
+              className="gsap-shape gsap-ring absolute border border-[#F48FB1]/20 rounded-full"
+              style={{
+                left: `${Math.random() * 80 + 10}%`,
+                top: `${Math.random() * 80 + 10}%`,
+                width: `${Math.random() * 100 + 50}px`,
+                height: `${Math.random() * 100 + 50}px`,
+              }}
+            />
+          ))}
+
+          <svg className="absolute w-full h-full" style={{ opacity: 0.1 }}>
+            <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#F48FB1" strokeWidth="0.5" />
+            </pattern>
+            <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+          </svg>
+        </div>
+      </div>
+
+      {/* GSAP HUD/UI Layer */}
+      <div className="absolute inset-0 pointer-events-none select-none z-0">
+        {/* Corners */}
+        <div className="gsap-ui-bracket absolute top-4 left-4 w-12 h-12 border-t border-l border-[#F48FB1]/30 rounded-tl-lg" />
+        <div className="gsap-ui-bracket absolute top-4 right-4 w-12 h-12 border-t border-r border-[#F48FB1]/30 rounded-tr-lg" />
+        <div className="gsap-ui-bracket absolute bottom-4 left-4 w-12 h-12 border-b border-l border-[#F48FB1]/30 rounded-bl-lg" />
+        <div className="gsap-ui-bracket absolute bottom-4 right-4 w-12 h-12 border-b border-r border-[#F48FB1]/30 rounded-br-lg" />
+
+        {/* Side Status Bars */}
+        <div className="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col gap-3">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="gsap-ui-bar w-1 h-6 bg-[#F48FB1]/20 rounded-full" />
+          ))}
+        </div>
+
+        {/* Decorative Text */}
+        <div ref={textRef} className="absolute right-8 top-12 text-[10px] font-mono text-[#F48FB1]/40 tracking-widest" style={{ writingMode: 'vertical-rl' }}>
+          SYSTEM_READY // THINK_CREATE_MAKE
+        </div>
       </div>
 
       <div ref={containerRef} className="relative z-10 flex flex-col md:flex-row items-center gap-20">
