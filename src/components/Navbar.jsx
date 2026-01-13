@@ -127,7 +127,7 @@ const Navbar = () => {
     <div ref={containerRef} className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none">
       <nav
         ref={navRef}
-        className="relative w-full flex justify-between items-center px-6 py-4 transition-all duration-300 pointer-events-auto border-b border-white/10 bg-black/50 backdrop-blur-sm"
+        className="relative w-full flex justify-between items-center px-6 py-4 gap-4 transition-all duration-300 pointer-events-auto border-b border-white/10 bg-black/50 backdrop-blur-sm"
       >
         {/* Logo */}
         <div ref={logoRef} className="flex items-center gap-2">
