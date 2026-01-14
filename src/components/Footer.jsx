@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -9,6 +9,7 @@ import Footer3D from './Footer3D';
 gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
+  const [showEmail, setShowEmail] = useState(false);
   const footerRef = useRef(null);
   const circleRef = useRef(null);
   const contentRef = useRef(null);
@@ -163,7 +164,6 @@ const Footer = () => {
           {[
             { icon: Github, link: SOCIALS.github },
             { icon: Linkedin, link: SOCIALS.linkedin },
-            { icon: Mail, link: `mailto:${SOCIALS.email}` }
           ].map((item, index) => (
             <a
               key={index}
@@ -175,6 +175,15 @@ const Footer = () => {
               <item.icon size={18} />
             </a>
           ))}
+
+          <button
+            onClick={() => setShowEmail(!showEmail)}
+            className={`h-10 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300 ${showEmail ? 'w-auto px-4 gap-2 bg-white text-black scale-100' : 'w-10 hover:scale-110'
+              }`}
+          >
+            <Mail size={18} />
+            {showEmail && <span className="text-sm font-medium">jonaselcid30@gmail.com</span>}
+          </button>
         </div>
 
         {/* Right: Copyright (Variable Width) */}
